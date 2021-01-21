@@ -1,5 +1,6 @@
 package com.example.lordweather;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -7,25 +8,22 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.IBinder;
 
+import androidx.core.app.NotificationCompat;
+
 public class localService extends Service {
-    private final IBinder binder = new LocalBinder();
-   LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    private static final int NOTIF_ID = 1;
+    private static final String NOTIF_CHANNEL_ID = "Channel_Id";
 
 
-    public class LocalBinder extends Binder {
-        localService getService() {
-            // Return this instance of LocalService so clients can call public methods
-            return localService.this;
-        }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     @Override
-    public IBinder onBind(Intent intent){
-        return binder;
-    }
-    public void sendRequest(){
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        // do your jobs here
+        return super.onStartCommand(intent, flags, startId);
     }
 }
-

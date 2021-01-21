@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        startService(new Intent(this, localService.class));
         prefs = getSharedPreferences("com.LordWeather", MODE_PRIVATE);
         SharedPreferences sharedPref = getSharedPreferences("com.LordWeather", MODE_PRIVATE);
         if (prefs.getBoolean("firstrun", true)) {
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
 
-        Intent intent = new Intent(this, localService.class);
-        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+     //   Intent intent = new Intent(this, localService.class);
+      //  bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
     protected void onResume() {
         super.onResume();
@@ -62,19 +62,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(clock);
     }
 
-    private ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
+   // private ServiceConnection connection = new ServiceConnection() {
+     //   @Override
+     //   public void onServiceConnected(ComponentName className,
+      //                                 IBinder service) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
-            localService.LocalBinder binder = (localService.LocalBinder) service;
-             mService= binder.getService();
-            mBound = true;
-        }
+      //      localService.LocalBinder binder = (localService.LocalBinder) service;
+      //       mService= binder.getService();
+      //      mBound = true;
+     //   }
 
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mBound = false;
+     //   @Override
+   //     public void onServiceDisconnected(ComponentName name) {
+     //       mBound = false;
         }
-    };
+   // };
 }
