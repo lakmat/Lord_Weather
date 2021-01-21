@@ -1,7 +1,9 @@
 package com.example.lordweather;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,12 +24,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 public class localService extends Service {
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
     LocationManager locationManager;
     String latitude, longitude;
     SharedPreferences prefs;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
+    String time;
 
 
     @Override
@@ -38,6 +45,27 @@ public class localService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // do your jobs here
+        prefs = getSharedPreferences("com.LordWeather", MODE_PRIVATE);
+
+        alarmMgr = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent2 = new Intent(this, alarmReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(this, 0, intent2, 0);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        time = prefs.getString("time", "");
+        String[] parts = time.split(":");
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(parts[0]));
+        calendar.set(Calendar.MINUTE, Integer.valueOf(parts[1]));
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, alarmIntent );
+
+
+
+// Access the RequestQueue through your singleton class.
+        //  MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void setData(){
         String url = "https://api.openweathermap.org/data/2.5/onecall?lat="+latitude +"&lon="+ longitude+"&exclude=minutely,hourly,events,alerts,current&appid=d4715018895492522b0f22e8ac237412";
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -46,7 +74,6 @@ public class localService extends Service {
             getLocation();
         }
 
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -54,7 +81,6 @@ public class localService extends Service {
                     public void onResponse(JSONObject response) {
                         // textView.setText("Response: " + response.toString());
                         try {
-                            prefs = getSharedPreferences("com.LordWeather", MODE_PRIVATE);
                             JSONArray daily = response.getJSONArray("daily");
                             JSONObject obj = daily.getJSONObject(0);
                             String humid = obj.getString("humidity");
@@ -80,10 +106,6 @@ public class localService extends Service {
                         error.printStackTrace();
                     }
                 });
-
-// Access the RequestQueue through your singleton class.
-        //  MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
-        return super.onStartCommand(intent, flags, startId);
     }
 
     private void OnGPS() {
@@ -121,4 +143,8 @@ public class localService extends Service {
             }
         }
     }
+    private void calculate(){
+
+    }
+
 }

@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     localService mService;
     boolean mBound = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

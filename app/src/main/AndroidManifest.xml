@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LordWeather">
         <service android:name=".localService"/>
+        <receiver android:name=".alarmReceiver"></receiver>
         <activity
             android:name=".inventory"
             android:label="@string/title_activity_inventory"
