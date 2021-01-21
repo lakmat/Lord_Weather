@@ -77,4 +77,3 @@ public class MainActivity extends AppCompatActivity {
      //       mBound = false;
         }
    // };
-}
