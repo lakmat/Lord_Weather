@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lordweather">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,12 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LordWeather">
-        <service android:name=".localService"/>
-        <receiver android:name=".alarmReceiver"></receiver>
+        <receiver android:name=".NewAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info" />
+        </receiver>
+
+        <service android:name=".localService" />
+
+        <receiver android:name=".alarmReceiver" />
+
         <activity
             android:name=".inventory"
             android:label="@string/title_activity_inventory"
-            android:theme="@style/Theme.LordWeather.NoActionBar"></activity>
+            android:theme="@style/Theme.LordWeather.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,15 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".allset"></activity>
-        <activity android:name=".time_selection"></activity>
-        <activity android:name=".firststartup"></activity>
-        <activity android:name=".clothesselstartup"></activity>
-
+        <activity android:name=".allset" />
+        <activity android:name=".time_selection" />
+        <activity android:name=".firststartup" />
+        <activity android:name=".clothesselstartup" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
 
 </manifest>

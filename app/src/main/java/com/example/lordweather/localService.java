@@ -143,8 +143,12 @@ public class localService extends Service {
             }
         }
     }
-    private void calculate(){
+    public void calculate(){
+        setData();
+       String humid = prefs.getString("humid", "");
+        if(Float.valueOf(humid) >= 75){
 
+        }
     }
 
 }

@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         Intent clock = new Intent(getApplicationContext(), time_selection.class);
         startActivity(clock);
     }
+    public void createWidget(View v){
+        Intent widg = new Intent(getApplicationContext(), NewAppWidget.class);
+        startActivity(widg);
+
+    }
 
    // private ServiceConnection connection = new ServiceConnection() {
      //   @Override

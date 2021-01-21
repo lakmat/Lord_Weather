@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/appWidgetBackgroundColor"
+    android:padding="@dimen/widget_margin"
+    android:theme="@style/ThemeOverlay.LordWeather.AppWidgetContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/weather_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/appWidgetBackgroundColor"
+            android:contentDescription="@string/appwidget_text"
+            android:text="Weather Description"
+            android:textColor="?attr/appWidgetTextColor"
+            android:textSize="36sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/weather_gen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cloudy"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/temp_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Temperature:"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/temp_high"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12.5C" />
+
+        <TextView
+            android:id="@+id/temp_low1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="-1C" />
+
+        <TextView
+            android:id="@+id/prec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Precipation"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/prec_per"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="62%" />
+
+        <TextView
+            android:id="@+id/suggest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clothing suggestion:"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/suggest_val"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Warm" />
+
+    </LinearLayout>
+</RelativeLayout>
